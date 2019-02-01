@@ -183,7 +183,7 @@ def test_apply_layout(mock_patch_game_name_and_id: MagicMock,
     options: Options = MagicMock()
 
     # Run
-    simplified_patcher.apply_layout(layout, options, progress_update)
+    simplified_patcher.apply_menu_mod(layout, options, progress_update)
 
     # Assert
     mock_patch_game_name_and_id.assert_called_once_with(

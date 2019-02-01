@@ -1,21 +1,4 @@
 from pathlib import Path
-from typing import Optional, Tuple
-
-
-def discover_game(game_files_path: Path) -> Optional[Tuple[str, str]]:
-    if not game_files_path.is_dir():
-        return None
-
-    boot_bin = game_files_path / "sys" / "boot.bin"
-    try:
-        header_bytes = boot_bin.read_bytes()
-
-        game_id = header_bytes[0:6].decode("UTF-8")
-        game_title = header_bytes[32:64].split(b"\x00")[0].decode("UTF-8")
-        return game_id, game_title
-
-    except FileNotFoundError:
-        return None
 
 
 def validate_game_files_path(game_files_path: Path):
