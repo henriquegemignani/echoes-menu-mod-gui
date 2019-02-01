@@ -2,11 +2,11 @@ import shutil
 from pathlib import Path
 from typing import List
 
-from randovania import get_data_path
-from randovania.games.prime import iso_packager, claris_menu_mod
-from randovania.games.prime.banner_patcher import patch_game_name_and_id
-from randovania.interface_common import status_update_lib
-from randovania.interface_common.status_update_lib import ProgressUpdateCallable
+from echoes_menu_mod_gui import get_data_path
+from echoes_menu_mod_gui.games.prime import iso_packager, claris_menu_mod
+from echoes_menu_mod_gui.games.prime.banner_patcher import patch_game_name_and_id
+from echoes_menu_mod_gui.interface_common import status_update_lib
+from echoes_menu_mod_gui.interface_common.status_update_lib import ProgressUpdateCallable
 
 
 def find_game_files_path():

@@ -2,10 +2,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from randovania import cli
+from echoes_menu_mod_gui import cli
 
 
-@patch("randovania.cli.qt.create_subparsers", autospec=True)
+@patch("echoes_menu_mod_gui.cli.qt.create_subparsers", autospec=True)
 def test_create_subparsers(mock_qt_create_subparsers: MagicMock,
                            ):
     # Setup
@@ -46,7 +46,7 @@ def test_parse_args_invalid(mock_exit: MagicMock,
     mock_exit.assert_called_once_with(0)
 
 
-@patch("randovania.cli.qt.run", autospec=True)
+@patch("echoes_menu_mod_gui.cli.qt.run", autospec=True)
 def test_run_args_no_option(mock_qt_run: MagicMock,
                             ):
     # Setup
@@ -71,8 +71,8 @@ def test_run_args_with_func():
     args.func.assert_called_once_with(args)
 
 
-@patch("randovania.cli._run_args", autospec=True)
-@patch("randovania.cli._create_parser", autospec=True)
+@patch("echoes_menu_mod_gui.cli._run_args", autospec=True)
+@patch("echoes_menu_mod_gui.cli._create_parser", autospec=True)
 def test_run_cli(mock_create_parser: MagicMock,
                  mock_run_args: MagicMock,
                  ):

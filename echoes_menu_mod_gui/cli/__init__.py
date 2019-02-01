@@ -4,8 +4,8 @@ import sys
 
 import pytest
 
-import randovania
-from randovania.gui import qt
+import echoes_menu_mod_gui
+from echoes_menu_mod_gui.gui import qt
 
 
 def create_subparsers(root_parser):
@@ -14,8 +14,8 @@ def create_subparsers(root_parser):
 
 def _print_version(args):
     print("Menu Mod GUI {} from {}".format(
-        randovania.VERSION,
-        os.path.dirname(randovania.__file__)))
+        echoes_menu_mod_gui.VERSION,
+        os.path.dirname(echoes_menu_mod_gui.__file__)))
 
 
 def _create_parser():

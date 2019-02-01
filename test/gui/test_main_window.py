@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from randovania.gui.main_window import MainWindow
+from echoes_menu_mod_gui.gui.main_window import MainWindow
 
 pexpect = pytest.importorskip("pytestqt")
 

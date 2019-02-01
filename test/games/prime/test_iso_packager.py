@@ -5,7 +5,7 @@ from unittest.mock import patch, MagicMock, ANY, call
 
 import pytest
 
-from randovania.games.prime import iso_packager
+from echoes_menu_mod_gui.games.prime import iso_packager
 
 
 @patch("nod.ExtractionContext", autospec=True)
@@ -181,7 +181,7 @@ def test_shared_process_code_failure():
     assert str(exception.value) == "You got an error!"
 
 
-@patch("randovania.games.prime.iso_packager._shared_process_code", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager._shared_process_code", autospec=True)
 def test_unpack_iso_success(mock_shared_process_code: MagicMock,
                             ):
     # Setup
@@ -203,7 +203,7 @@ def test_unpack_iso_success(mock_shared_process_code: MagicMock,
     )
 
 
-@patch("randovania.games.prime.iso_packager._shared_process_code", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager._shared_process_code", autospec=True)
 def test_unpack_iso_failure(mock_shared_process_code: MagicMock,
                             ):
     # Setup
@@ -224,7 +224,7 @@ def test_unpack_iso_failure(mock_shared_process_code: MagicMock,
     assert str(exception.value) == "Unable to create files dir {}:\n{}".format(game_files_path, exception_message)
 
 
-@patch("randovania.games.prime.claris_menu_mod.disable_echoes_attract_videos", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.claris_menu_mod.disable_echoes_attract_videos", autospec=True)
 def test_disable_attract_videos_helper(mock_disable_echoes_attract_videos: MagicMock,
                                        ):
     # Setup
@@ -251,7 +251,7 @@ def test_disable_attract_videos_helper(mock_disable_echoes_attract_videos: Magic
 
 
 @pytest.mark.parametrize("already_disabled", [False, True])
-@patch("randovania.games.prime.iso_packager._shared_process_code", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager._shared_process_code", autospec=True)
 def test_disable_attract_videos(mock_shared_process_code: MagicMock,
                                 tmpdir,
                                 already_disabled: bool,
@@ -283,10 +283,10 @@ def test_disable_attract_videos(mock_shared_process_code: MagicMock,
 @pytest.mark.parametrize("disable_attract_if_necessary", [False, True])
 @pytest.mark.parametrize("disable_attract_is_necessary", [False, True])
 @pytest.mark.parametrize("iso_too_big", [False, True])
-@patch("randovania.games.prime.iso_packager.nod")
-@patch("randovania.games.prime.iso_packager._shared_process_code", autospec=True)
-@patch("randovania.games.prime.iso_packager._disable_attract_videos", autospec=True)
-@patch("randovania.games.prime.iso_packager.validate_game_files_path", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager.nod")
+@patch("echoes_menu_mod_gui.games.prime.iso_packager._shared_process_code", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager._disable_attract_videos", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager.validate_game_files_path", autospec=True)
 def test_pack_iso(mock_validate_game_files_path: MagicMock,
                   mock_disable_attract_videos: MagicMock,
                   mock_shared_process_code: MagicMock,
@@ -343,8 +343,8 @@ def test_pack_iso(mock_validate_game_files_path: MagicMock,
         )
 
 
-@patch("randovania.games.prime.iso_packager.nod")
-@patch("randovania.games.prime.iso_packager.validate_game_files_path", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.iso_packager.nod")
+@patch("echoes_menu_mod_gui.games.prime.iso_packager.validate_game_files_path", autospec=True)
 def test_pack_iso_invalid_version(mock_validate_game_files_path: MagicMock,
                                   mock_nod: MagicMock,
                                   ):
@@ -367,6 +367,6 @@ def test_can_process_iso_success():
 
 def test_can_process_iso_failure():
     with patch.dict(sys.modules, nod=None):
-        del sys.modules["randovania.games.prime.iso_packager"]
-        from randovania.games.prime.iso_packager import can_process_iso
+        del sys.modules["echoes_menu_mod_gui.games.prime.iso_packager"]
+        from echoes_menu_mod_gui.games.prime.iso_packager import can_process_iso
         assert not can_process_iso()

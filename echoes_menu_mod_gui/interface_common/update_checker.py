@@ -7,7 +7,7 @@ from typing import Callable, Optional, NamedTuple
 
 import requests
 
-from randovania import VERSION, get_data_path
+from echoes_menu_mod_gui import VERSION, get_data_path
 
 _LATEST_RELEASE_URL = "https://api.github.com/repos/henriquegemignani/echoes-menu-mod-gui/releases/latest"
 

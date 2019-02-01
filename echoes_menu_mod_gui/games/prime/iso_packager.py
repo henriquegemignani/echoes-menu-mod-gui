@@ -7,9 +7,9 @@ try:
 except ImportError:
     nod = None
 
-from randovania.games.prime import claris_menu_mod
-from randovania.interface_common.game_workdir import validate_game_files_path
-from randovania.interface_common.status_update_lib import ProgressUpdateCallable
+from echoes_menu_mod_gui.games.prime import claris_menu_mod
+from echoes_menu_mod_gui.interface_common.game_workdir import validate_game_files_path
+from echoes_menu_mod_gui.interface_common.status_update_lib import ProgressUpdateCallable
 
 
 def _disc_unpack_process(output_pipe,

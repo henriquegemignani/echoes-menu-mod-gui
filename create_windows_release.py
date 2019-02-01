@@ -7,9 +7,9 @@ from pathlib import Path
 
 import markdown as markdown
 
-from randovania import VERSION, get_data_path
-from randovania.cli import prime_database
-from randovania.games.prime import default_data
+from echoes_menu_mod_gui import VERSION, get_data_path
+from echoes_menu_mod_gui.cli import prime_database
+from echoes_menu_mod_gui.games.prime import default_data
 
 zip_folder = "randovania-{}".format(VERSION)
 

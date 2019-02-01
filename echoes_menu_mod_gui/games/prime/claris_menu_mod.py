@@ -2,7 +2,7 @@ import subprocess
 from pathlib import Path
 from typing import Callable, List, Union
 
-from randovania import get_data_path
+from echoes_menu_mod_gui import get_data_path
 
 _USELESS_PICKUP_NAME = "Energy Transfer Module"
 

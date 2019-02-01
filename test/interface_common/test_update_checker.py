@@ -1,9 +1,9 @@
 from unittest.mock import MagicMock, patch
 
-from randovania.interface_common import update_checker
+from echoes_menu_mod_gui.interface_common import update_checker
 
 
-@patch("randovania.interface_common.update_checker._read_from_persisted", autospec=True)
+@patch("echoes_menu_mod_gui.interface_common.update_checker._read_from_persisted", autospec=True)
 def test_get_latest_version_work(mock_read_from_persisted: MagicMock,
                                  ):
     on_result = MagicMock()

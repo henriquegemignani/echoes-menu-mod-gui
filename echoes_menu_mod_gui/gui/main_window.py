@@ -5,12 +5,12 @@ from PySide2.QtCore import QUrl, Signal
 from PySide2.QtGui import QDesktopServices
 from PySide2.QtWidgets import QMainWindow, QAction, QFileDialog
 
-from randovania import VERSION
-from randovania.gui import common_qt_lib
-from randovania.gui.background_task_mixin import BackgroundTaskMixin
-from randovania.gui.common_qt_lib import set_default_window_icon
-from randovania.gui.mainwindow_ui import Ui_MainWindow
-from randovania.interface_common.update_checker import get_latest_version
+from echoes_menu_mod_gui import VERSION
+from echoes_menu_mod_gui.gui import common_qt_lib
+from echoes_menu_mod_gui.gui.background_task_mixin import BackgroundTaskMixin
+from echoes_menu_mod_gui.gui.common_qt_lib import set_default_window_icon
+from echoes_menu_mod_gui.gui.mainwindow_ui import Ui_MainWindow
+from echoes_menu_mod_gui.interface_common.update_checker import get_latest_version
 
 
 class MainWindow(QMainWindow, Ui_MainWindow, BackgroundTaskMixin):

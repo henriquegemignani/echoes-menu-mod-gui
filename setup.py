@@ -2,7 +2,7 @@ from pyqt_distutils.build_ui import build_ui
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
 
-from randovania import VERSION
+from echoes_menu_mod_gui import VERSION
 
 
 class custom_build_py(build_py):

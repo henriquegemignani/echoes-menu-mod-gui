@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from PySide2 import QtCore
 from PySide2.QtWidgets import QApplication, QMessageBox
 
-from randovania.gui.main_window import MainWindow
+from echoes_menu_mod_gui.gui.main_window import MainWindow
 
 
 def catch_exceptions(t, val, tb):

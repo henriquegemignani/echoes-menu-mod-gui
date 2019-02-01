@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock, call, ANY
 
 import pytest
 
-from randovania.games.prime import claris_menu_mod
+from echoes_menu_mod_gui.games.prime import claris_menu_mod
 
 
 class CustomException(Exception):
@@ -62,8 +62,8 @@ def test_run_with_args_failure(mock_popen: MagicMock,
     process.kill.assert_called_once_with()
 
 
-@patch("randovania.games.prime.claris_menu_mod._run_with_args", autospec=True)
-@patch("randovania.games.prime.claris_menu_mod._get_menu_mod_path", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.claris_menu_mod._run_with_args", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.claris_menu_mod._get_menu_mod_path", autospec=True)
 def test_add_menu_mod_to_files(mock_get_data_path: MagicMock,
                                mock_run_with_args: MagicMock,
                                tmpdir,
@@ -86,7 +86,7 @@ def test_add_menu_mod_to_files(mock_get_data_path: MagicMock,
     )
 
 
-@patch("randovania.games.prime.claris_menu_mod._get_menu_mod_folder", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.claris_menu_mod._get_menu_mod_folder", autospec=True)
 @patch("subprocess.Popen", autospec=True)
 def test_disable_echoes_attract_videos_success(mock_popen: MagicMock,
                                                _get_menu_mod_folder: MagicMock,
@@ -123,7 +123,7 @@ def test_disable_echoes_attract_videos_success(mock_popen: MagicMock,
     process.kill.assert_not_called()
 
 
-@patch("randovania.games.prime.claris_menu_mod._get_menu_mod_folder", autospec=True)
+@patch("echoes_menu_mod_gui.games.prime.claris_menu_mod._get_menu_mod_folder", autospec=True)
 @patch("subprocess.Popen", autospec=True)
 def test_disable_echoes_attract_videos_failure(mock_popen: MagicMock,
                                                _get_menu_mod_folder: MagicMock,

@@ -1,7 +1,7 @@
 import multiprocessing
 import sys
 
-from randovania import cli
+from echoes_menu_mod_gui import cli
 
 
 def main():

@@ -4,7 +4,7 @@ from typing import Iterator, Optional
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QCheckBox, QApplication, QFileDialog, QMainWindow, QWidget
 
-from randovania import get_data_path
+from echoes_menu_mod_gui import get_data_path
 
 
 def map_set_checked(iterable: Iterator[QCheckBox], new_status: bool):
