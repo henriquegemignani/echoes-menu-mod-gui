@@ -1,8 +1,8 @@
 {
     "files": [
         [
-            "randovania/gui/*.ui",
-            "randovania/gui"
+            "echoes_menu_mod_gui/gui/*.ui",
+            "echoes_menu_mod_gui/gui"
         ]
     ],
     "hooks": [],
