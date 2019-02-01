@@ -1,15 +1,18 @@
 import os
+from pathlib import Path
 from typing import Optional
 
 from PySide2.QtCore import QUrl, Signal
 from PySide2.QtGui import QDesktopServices
-from PySide2.QtWidgets import QMainWindow, QAction, QFileDialog
+from PySide2.QtWidgets import QMainWindow, QAction, QFileDialog, QMessageBox
 
 from echoes_menu_mod_gui import VERSION
 from echoes_menu_mod_gui.gui import common_qt_lib
 from echoes_menu_mod_gui.gui.background_task_mixin import BackgroundTaskMixin
 from echoes_menu_mod_gui.gui.common_qt_lib import set_default_window_icon
 from echoes_menu_mod_gui.gui.mainwindow_ui import Ui_MainWindow
+from echoes_menu_mod_gui.interface_common import simplified_patcher
+from echoes_menu_mod_gui.interface_common.status_update_lib import ProgressUpdateCallable
 from echoes_menu_mod_gui.interface_common.update_checker import get_latest_version
 
 
@@ -94,12 +97,37 @@ class MainWindow(QMainWindow, Ui_MainWindow, BackgroundTaskMixin):
         self.output_iso_edit.setText(open_result[0])
 
     def _apply_menu_mod(self):
-        pass
+        please_enter_input_iso = "Please enter the path to a Metroid Prime 2: Echoes game ISO."
+        if self.input_iso_edit.text() == "":
+            QMessageBox.warning(self, "Missing ISO Path", please_enter_input_iso)
+            return
+
+        input_iso = Path(self.input_iso_edit.text())
+        if not input_iso.is_file():
+            QMessageBox.warning(self, "Invalid ISO Path",
+                                "No file found at '{}'. {}.".format(input_iso, please_enter_input_iso))
+            return
+
+        if self.output_iso_edit.text() == "":
+            QMessageBox.warning(self, "Missing ISO Path",
+                                "Please select where the Menu Mod ISO will be created.")
+            return
+
+        output_iso = Path(self.output_iso_edit.text())
+
+        def work(progress_update: ProgressUpdateCallable):
+            simplified_patcher.patch_iso(progress_update=progress_update,
+                                         input_iso=input_iso,
+                                         output_iso=output_iso)
+            progress_update("Success!", 1)
+
+        self.run_in_background_thread(work, "Patching...")
 
     # Background Process
 
     def enable_buttons_with_background_tasks(self, value: bool):
         self.stop_background_process_button.setEnabled(not value)
+        self.apply_mod_button.setEnabled(value)
 
     def update_progress(self, message: str, percentage: int):
         self.progress_label.setText(message)

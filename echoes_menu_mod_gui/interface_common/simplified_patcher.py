@@ -23,7 +23,8 @@ def unpack_iso(input_iso: Path,
     :return:
     """
     game_files_path = find_game_files_path()
-    shutil.rmtree(game_files_path)
+    if game_files_path.exists():
+        shutil.rmtree(game_files_path)
 
     iso_packager.unpack_iso(
         iso=input_iso,
@@ -64,11 +65,15 @@ def pack_iso(output_iso: Path,
     )
 
 
-def patch_iso(updaters: List[ProgressUpdateCallable],
+def patch_iso(progress_update: ProgressUpdateCallable,
               input_iso: Path,
               output_iso: Path,
               ):
     game_files_path = find_game_files_path()
+    updaters = status_update_lib.split_progress_update(
+        progress_update,
+        3
+    )
 
     # Unpack ISO
     unpack_iso(input_iso=input_iso,
