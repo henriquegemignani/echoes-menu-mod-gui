@@ -1,17 +1,14 @@
 # -*- mode: python -*-
 
 block_cipher = None
-import os
-icon_path = "randovania/data/icons/sky_temple_key_NqN_icon.ico"
+icon_path = "echoes_menu_mod_gui/data/icons/sky_temple_key_NqN_icon.ico"
 
-a = Analysis(['randovania/__main__.py', 'randovania/cli/__init__.py'],
+a = Analysis(['echoes_menu_mod_gui/__main__.py', 'echoes_menu_mod_gui/cli/__init__.py'],
              pathex=[],
              binaries=[],
              datas=[
-                 ("randovania/data/icons", "data/icons"),
-                 ("randovania/data/ClarisEchoesMenu", "data/ClarisEchoesMenu"),
-                 ("randovania/data/ClarisPrimeRandomizer", "data/ClarisPrimeRandomizer"),
-                 ("randovania/data/binary_data", "data/binary_data"),
+                 ("echoes_menu_mod_gui/data/icons", "data/icons"),
+                 ("echoes_menu_mod_gui/data/ClarisEchoesMenu", "data/ClarisEchoesMenu"),
              ],
              hiddenimports=[
                 "unittest.mock",
@@ -29,7 +26,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='randovania',
+          name='echoes_menu_mod_gui',
           debug=False,
           strip=False,
           upx=False,
@@ -41,4 +38,4 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=False,
-               name='randovania')
+               name='echoes_menu_mod_gui')
