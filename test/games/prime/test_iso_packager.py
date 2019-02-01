@@ -224,7 +224,7 @@ def test_unpack_iso_failure(mock_shared_process_code: MagicMock,
     assert str(exception.value) == "Unable to create files dir {}:\n{}".format(game_files_path, exception_message)
 
 
-@patch("randovania.games.prime.claris_randomizer.disable_echoes_attract_videos", autospec=True)
+@patch("randovania.games.prime.claris_menu_mod.disable_echoes_attract_videos", autospec=True)
 def test_disable_attract_videos_helper(mock_disable_echoes_attract_videos: MagicMock,
                                        ):
     # Setup

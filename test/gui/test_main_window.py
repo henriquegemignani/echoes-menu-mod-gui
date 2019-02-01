@@ -1,27 +1,18 @@
-from pathlib import Path
-from typing import Union
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 
 from randovania.gui.main_window import MainWindow
-from randovania.interface_common.options import Options
 
 pexpect = pytest.importorskip("pytestqt")
 
 
-def create_window(options: Union[Options, MagicMock]) -> MainWindow:
-    return MainWindow(options, False)
-
-
 @pytest.fixture(name="default_main_window")
 def _default_main_window() -> MainWindow:
-    return create_window(Options(MagicMock()))
+    return MainWindow()
 
 
-@patch("randovania.gui.main_window.ISOManagementWindow.load_game", autospec=True)
-def test_drop_iso_event(mock_load_game: MagicMock,
-                        default_main_window: MainWindow,
+def test_drop_iso_event(default_main_window: MainWindow,
                         qtbot,
                         ):
     # Setup
@@ -35,12 +26,10 @@ def test_drop_iso_event(mock_load_game: MagicMock,
     default_main_window.dropEvent(event)
 
     # Assert
-    mock_load_game.assert_called_once_with(default_main_window.windows[0], Path("directory/games/game.iso"))
+    assert default_main_window.input_iso_edit.text() == "directory/games/game.iso"
 
 
-@patch("randovania.gui.main_window.ISOManagementWindow.load_game", autospec=True)
-def test_drop_random_event(mock_load_game: MagicMock,
-                           default_main_window: MainWindow,
+def test_drop_random_event(default_main_window: MainWindow,
                            qtbot,
                            ):
     # Setup
@@ -54,4 +43,4 @@ def test_drop_random_event(mock_load_game: MagicMock,
     default_main_window.dropEvent(event)
 
     # Assert
-    mock_load_game.assert_not_called()
+    assert default_main_window.input_iso_edit.text() == ""
