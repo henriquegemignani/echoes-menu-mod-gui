@@ -38,7 +38,7 @@ test_script:
   # the interpreter you're using - Appveyor does not do anything special
   # to put the Python version you want to use on PATH.
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
-  - "%PYTHON%\\python.exe -m pytest --cov echoes_menu_mod_gui --skip-generation-tests"
+  - "%PYTHON%\\python.exe -m pytest --cov echoes_menu_mod_gui"
   - "%PYTHON%\\python.exe create_windows_release.py"
   - dist\echoes_menu_mod_gui\echoes_menu_mod_gui.exe --version
   - dist\echoes_menu_mod_gui\echoes_menu_mod_gui.exe --pytest
