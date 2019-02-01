@@ -7,10 +7,9 @@ from typing import Callable, Optional, NamedTuple
 
 import requests
 
-from randovania import VERSION
-from randovania.interface_common import persistence
+from randovania import VERSION, get_data_path
 
-_LATEST_RELEASE_URL = "https://api.github.com/repos/henriquegemignani/randovania/releases/latest"
+_LATEST_RELEASE_URL = "https://api.github.com/repos/henriquegemignani/echoes-menu-mod-gui/releases/latest"
 
 
 class VersionDescription(NamedTuple):
@@ -19,7 +18,7 @@ class VersionDescription(NamedTuple):
 
 
 def _last_check_file() -> Path:
-    return persistence.user_data_dir() / "last_version_check.json"
+    return get_data_path() / "last_version_check.json"
 
 
 def _is_recent(last_check) -> bool:

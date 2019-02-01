@@ -5,20 +5,15 @@ import sys
 import pytest
 
 import randovania
-from randovania.cli import echoes
 from randovania.gui import qt
-
-games = [echoes]
 
 
 def create_subparsers(root_parser):
-    for game in games:
-        game.create_subparsers(root_parser)
     qt.create_subparsers(root_parser)
 
 
 def _print_version(args):
-    print("Randovania {} from {}".format(
+    print("Menu Mod GUI {} from {}".format(
         randovania.VERSION,
         os.path.dirname(randovania.__file__)))
 

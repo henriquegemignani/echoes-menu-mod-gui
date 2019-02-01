@@ -39,24 +39,6 @@ def prompt_user_for_input_iso(window: QMainWindow) -> Optional[Path]:
     return _prompt_user_for_file(window, caption="Select the vanilla Game ISO.", filter="*.iso")
 
 
-def prompt_user_for_seed_log(window: QMainWindow) -> Optional[Path]:
-    """
-    Shows an QFileDialog asking the user for a Randovania seed log
-    :param window:
-    :return: A string if the user selected a file, None otherwise
-    """
-    return _prompt_user_for_file(window, caption="Select a Randovania seed log.", filter="*.json")
-
-
-def prompt_user_for_database_file(window: QMainWindow) -> Optional[Path]:
-    """
-    Shows an QFileDialog asking the user for a Randovania database file
-    :param window:
-    :return: A string if the user selected a file, None otherwise
-    """
-    return _prompt_user_for_file(window, caption="Select a Randovania database file.", filter="*.json")
-
-
 def set_default_window_icon(window: QWidget):
     """
     Sets the window icon for the given widget to the default icon
