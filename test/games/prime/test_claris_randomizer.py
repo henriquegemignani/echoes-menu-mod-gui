@@ -225,7 +225,7 @@ def test_add_menu_mod_to_files(mock_get_data_path: MagicMock,
     game_root.joinpath("files").mkdir(parents=True)
 
     # Run
-    claris_randomizer._add_menu_mod_to_files(game_root, status_update)
+    claris_randomizer.add_menu_mod_to_files(game_root, status_update)
 
     # Assert
     mock_run_with_args.assert_called_once_with(
