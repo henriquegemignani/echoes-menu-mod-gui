@@ -7,6 +7,8 @@ Menu Mod is a game modification that allows you to warp to any room in the game,
 room state. For more details, see the
 [Menu Mod README](https://www.dropbox.com/s/yhqqafaxfo3l4vn/Echoes%20Menu.7z?file_subpath=%2FEchoes+Menu%2Freadme.txt).  
 
+![Main GUI](echoes-menu-mod-gui-readme/menu-1.png)
+
 ## Installation
 
 ### Windows
