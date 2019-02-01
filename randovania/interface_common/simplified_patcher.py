@@ -4,6 +4,7 @@ from typing import List
 
 from randovania import get_data_path
 from randovania.games.prime import iso_packager, claris_menu_mod
+from randovania.games.prime.banner_patcher import patch_game_name_and_id
 from randovania.interface_common import status_update_lib
 from randovania.interface_common.status_update_lib import ProgressUpdateCallable
 
@@ -18,7 +19,6 @@ def unpack_iso(input_iso: Path,
     """
     Unpacks the given ISO to the files listed in options
     :param input_iso:
-    :param options:
     :param progress_update:
     :return:
     """
@@ -68,6 +68,7 @@ def patch_iso(updaters: List[ProgressUpdateCallable],
               input_iso: Path,
               output_iso: Path,
               ):
+    game_files_path = find_game_files_path()
 
     # Unpack ISO
     unpack_iso(input_iso=input_iso,
@@ -76,8 +77,11 @@ def patch_iso(updaters: List[ProgressUpdateCallable],
     # Patch ISO
     apply_menu_mod(progress_update=updaters[1])
 
+    # Change Title
+    patch_game_name_and_id(game_files_path, "Metroid Prime 2: Menu Mod")
+
     # Pack ISO
     pack_iso(output_iso=output_iso,
              progress_update=updaters[2])
 
-    shutil.rmtree(find_game_files_path())
+    shutil.rmtree(game_files_path)
