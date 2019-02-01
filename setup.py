@@ -47,7 +47,6 @@ setup(
     python_requires=">=3.7",
     install_requires=[
         'PySide2>=5.12',
-        'appdirs',
         'nod>=1.1',
         'requests',
         'pytest',
@@ -56,7 +55,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            "randovania = randovania.__main__:main"
+            "echoes_menu_mod_gui = echoes_menu_mod_gui.__main__:main"
         ]
     },
 )

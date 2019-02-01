@@ -38,10 +38,10 @@ test_script:
   # the interpreter you're using - Appveyor does not do anything special
   # to put the Python version you want to use on PATH.
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
-  - "%PYTHON%\\python.exe -m pytest --cov randovania --skip-generation-tests"
+  - "%PYTHON%\\python.exe -m pytest --cov echoes_menu_mod_gui --skip-generation-tests"
   - "%PYTHON%\\python.exe create_windows_release.py"
-  - dist\randovania\randovania.exe --version
-  - dist\randovania\randovania.exe --pytest
+  - dist\echoes_menu_mod_gui\echoes_menu_mod_gui.exe --version
+  - dist\echoes_menu_mod_gui\echoes_menu_mod_gui.exe --pytest
 
 # after_test:
   # This step builds your wheels.
@@ -58,18 +58,6 @@ artifacts:
   # bdist_wheel puts your built wheel in the dist directory
   - path: dist\*.zip
     name: release
-
-on_success:
-#  You can use this step to upload your artifacts to a public website.
-#  See Appveyor's documentation for more details. Or you can simply
-#  access your wheels from the Appveyor "artifacts" tab for your build.
-  - codecov
-  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/5d41a01f262a24738ab0aee36da941c0b1fb703c/send.ps1 -o send.ps1
-  - ps: ./send.ps1 success $env:WEBHOOK_URL
-
-on_failure:
-  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/5d41a01f262a24738ab0aee36da941c0b1fb703c/send.ps1 -o send.ps1
-  - ps: ./send.ps1 failure $env:WEBHOOK_URL
 
 deploy:
   description: 'Release description'

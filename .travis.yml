@@ -49,21 +49,10 @@ install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python -m pip install pytest-xvfb; fi
 - python -m pip install -e .
 - python -m pip install codecov
-- python -m pip uninstall -y randovania
+- python -m pip uninstall -y echoes_menu_mod_gui
 
 script:
 - python setup.py bdist_wheel
 - python -m pip install --upgrade dist/*
-- python -m pytest --cov randovania
+- python -m pytest --cov echoes_menu_mod_gui
 - if [[ "$INCLUDE_SDIST" == "true" ]]; then python setup.py sdist; fi
-
-after_success:
-  - codecov
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/6d919918f55cff047d6f71689931ed15f9716b53/send.sh
-  - chmod +x send.sh
-  - ./send.sh success $WEBHOOK_URL
-
-after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/6d919918f55cff047d6f71689931ed15f9716b53/send.sh
-  - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
