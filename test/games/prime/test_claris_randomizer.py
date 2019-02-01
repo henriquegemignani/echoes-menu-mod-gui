@@ -9,7 +9,7 @@ import randovania
 from randovania.game_description.game_patches import GamePatches
 from randovania.game_description.node import TeleporterConnection
 from randovania.game_description.resources import PickupDatabase
-from randovania.games.prime import claris_randomizer, claris_random
+from randovania.games.prime import claris_menu_mod, claris_random
 from randovania.layout.layout_configuration import LayoutRandomizedFlag, LayoutConfiguration
 from randovania.layout.layout_description import LayoutDescription
 from randovania.layout.patcher_configuration import PatcherConfiguration
@@ -57,7 +57,7 @@ def test_run_with_args_success(mock_popen: MagicMock,
     ]
 
     # Run
-    claris_randomizer._run_with_args(args, finish_string, status_update)
+    claris_menu_mod._run_with_args(args, finish_string, status_update)
 
     # Assert
     mock_popen.assert_called_once_with(
@@ -82,7 +82,7 @@ def test_run_with_args_failure(mock_popen: MagicMock,
 
     # Run
     with pytest.raises(CustomException):
-        claris_randomizer._run_with_args([], finish_string, CustomException.do_raise)
+        claris_menu_mod._run_with_args([], finish_string, CustomException.do_raise)
 
     # Assert
     mock_popen.assert_called_once_with([], stdout=subprocess.PIPE, bufsize=0, universal_newlines=True)
@@ -101,7 +101,7 @@ def test_base_args(mock_get_data_path: MagicMock,
     game_root = Path("root")
 
     # Run
-    results = claris_randomizer._base_args(game_root, hud_memo_popup_removal)
+    results = claris_menu_mod._base_args(game_root, hud_memo_popup_removal)
 
     # Assert
     expected_results = [
@@ -142,7 +142,7 @@ def test_ensure_no_menu_mod(mock_copy: MagicMock,
             pak_folder.joinpath(pak).write_bytes(b"")
 
     # Run
-    claris_randomizer._ensure_no_menu_mod(game_root, backup_files_path, status_update)
+    claris_menu_mod._ensure_no_menu_mod(game_root, backup_files_path, status_update)
 
     # Assert
     if has_menu_mod:
@@ -163,7 +163,7 @@ def test_ensure_no_menu_mod(mock_copy: MagicMock,
         mock_copy.assert_not_called()
 
 
-@pytest.mark.parametrize("missing_pak", claris_randomizer._ECHOES_PAKS)
+@pytest.mark.parametrize("missing_pak", claris_menu_mod._ECHOES_PAKS)
 @patch("shutil.copy", autospec=True)
 def test_create_pak_backups(mock_copy: MagicMock,
                             tmpdir,
@@ -176,12 +176,12 @@ def test_create_pak_backups(mock_copy: MagicMock,
 
     pak_folder = backup_files_path.joinpath("mp2_paks")
     pak_folder.mkdir(parents=True)
-    for pak in claris_randomizer._ECHOES_PAKS:
+    for pak in claris_menu_mod._ECHOES_PAKS:
         if pak != missing_pak:
             pak_folder.joinpath(pak).write_bytes(b"")
 
     # Run
-    claris_randomizer._create_pak_backups(game_root, backup_files_path, status_update)
+    claris_menu_mod._create_pak_backups(game_root, backup_files_path, status_update)
 
     # Assert
     status_update.assert_called_once_with("Backing up {}".format(missing_pak))
@@ -199,16 +199,16 @@ def test_create_pak_backups_no_existing(mock_copy: MagicMock,
     status_update = MagicMock()
 
     # Run
-    claris_randomizer._create_pak_backups(game_root, backup_files_path, status_update)
+    claris_menu_mod._create_pak_backups(game_root, backup_files_path, status_update)
 
     # Assert
     status_update.assert_has_calls([
         call("Backing up {}".format(pak))
-        for pak in claris_randomizer._ECHOES_PAKS
+        for pak in claris_menu_mod._ECHOES_PAKS
     ])
     mock_copy.assert_has_calls([
         call(game_root.joinpath("files", pak), backup_files_path.joinpath("mp2_paks", pak))
-        for pak in claris_randomizer._ECHOES_PAKS
+        for pak in claris_menu_mod._ECHOES_PAKS
     ])
 
 
@@ -225,7 +225,7 @@ def test_add_menu_mod_to_files(mock_get_data_path: MagicMock,
     game_root.joinpath("files").mkdir(parents=True)
 
     # Run
-    claris_randomizer.add_menu_mod_to_files(game_root, status_update)
+    claris_menu_mod.add_menu_mod_to_files(game_root, status_update)
 
     # Assert
     mock_run_with_args.assert_called_once_with(
@@ -252,11 +252,11 @@ def test_calculate_indices_no_item(mock_read_databases: MagicMock,
     mock_read_databases.return_value = (None, echoes_pickup_database)
 
     # Run
-    result = claris_randomizer._calculate_indices(description)
+    result = claris_menu_mod._calculate_indices(description)
 
     # Assert
     mock_read_databases.assert_called_once_with(description.permalink.layout_configuration.game_data)
-    useless_pickup = echoes_pickup_database.pickup_by_name(claris_randomizer._USELESS_PICKUP_NAME)
+    useless_pickup = echoes_pickup_database.pickup_by_name(claris_menu_mod._USELESS_PICKUP_NAME)
     useless_index = echoes_pickup_database.original_index(useless_pickup)
     assert result == [useless_index.index] * echoes_pickup_database.total_pickup_count
 
@@ -276,7 +276,7 @@ def test_calculate_indices_original(mock_read_databases: MagicMock,
     mock_read_databases.return_value = (None, echoes_pickup_database)
 
     # Run
-    result = claris_randomizer._calculate_indices(description)
+    result = claris_menu_mod._calculate_indices(description)
 
     # Assert
     mock_read_databases.assert_called_once_with(description.permalink.layout_configuration.game_data)
@@ -357,7 +357,7 @@ def test_apply_layout(mock_run_with_args: MagicMock,
         expected_args.append("-c")
 
     # Run
-    claris_randomizer.apply_layout(description, game_root, backup_files_path, progress_update)
+    claris_menu_mod.apply_layout(description, game_root, backup_files_path, progress_update)
 
     # Assert
     mock_base_args.assert_called_once_with(game_root, hud_memo_popup_removal=hud_memo_popup_removal)
@@ -396,7 +396,7 @@ def test_disable_echoes_attract_videos_success(mock_popen: MagicMock,
     ]
 
     # Run
-    claris_randomizer.disable_echoes_attract_videos(game_root, status_update)
+    claris_menu_mod.disable_echoes_attract_videos(game_root, status_update)
 
     # Assert
     mock_get_randomizer_folder.assert_called_once_with()
@@ -429,7 +429,7 @@ def test_disable_echoes_attract_videos_failure(mock_popen: MagicMock,
 
     # Run
     with pytest.raises(CustomException):
-        claris_randomizer.disable_echoes_attract_videos(game_root, status_update)
+        claris_menu_mod.disable_echoes_attract_videos(game_root, status_update)
 
     # Assert
     mock_get_randomizer_folder.assert_called_once_with()
@@ -452,7 +452,7 @@ def test_try_randomize_elevators(seed_number: int, expected_ids: List[int]):
     rng = claris_random.Random(seed_number)
 
     # Run
-    result = claris_randomizer.try_randomize_elevators(rng)
+    result = claris_menu_mod.try_randomize_elevators(rng)
     connected_ids = [elevator.connected_elevator.instance_id for elevator in result]
 
     # Assert
@@ -471,7 +471,7 @@ def test_elevator_connections_for_seed_number(mock_try_randomize_elevators: Magi
     ]
 
     # Run
-    result = claris_randomizer.elevator_connections_for_seed_number(seed_number)
+    result = claris_menu_mod.elevator_connections_for_seed_number(seed_number)
 
     # Assert
     mock_random.assert_called_once_with(seed_number)

@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List
 
 from randovania import get_data_path
-from randovania.games.prime import iso_packager, claris_randomizer
+from randovania.games.prime import iso_packager, claris_menu_mod
 from randovania.interface_common import status_update_lib
 from randovania.interface_common.status_update_lib import ProgressUpdateCallable
 
@@ -41,8 +41,8 @@ def apply_menu_mod(progress_update: ProgressUpdateCallable):
     game_files_path = find_game_files_path()
 
     status_update = status_update_lib.create_progress_update_from_successive_messages(progress_update, 400)
-    claris_randomizer.add_menu_mod_to_files(game_root=game_files_path,
-                                            status_update=status_update)
+    claris_menu_mod.add_menu_mod_to_files(game_root=game_files_path,
+                                          status_update=status_update)
 
 
 def pack_iso(output_iso: Path,

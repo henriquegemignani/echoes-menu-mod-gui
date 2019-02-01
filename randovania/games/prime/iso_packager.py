@@ -7,7 +7,7 @@ try:
 except ImportError:
     nod = None
 
-from randovania.games.prime import claris_randomizer
+from randovania.games.prime import claris_menu_mod
 from randovania.interface_common.game_workdir import validate_game_files_path
 from randovania.interface_common.status_update_lib import ProgressUpdateCallable
 
@@ -111,7 +111,7 @@ def _disable_attract_videos_helper(output_pipe,
     def progress_update(message: str):
         output_pipe.send((False, message, -1))
 
-    claris_randomizer.disable_echoes_attract_videos(game_files_path, progress_update)
+    claris_menu_mod.disable_echoes_attract_videos(game_files_path, progress_update)
 
     game_files_path.joinpath("files", "attract_videos_disabled.txt").write_bytes(b"")
     output_pipe.send((True, None, -1))

@@ -6,7 +6,7 @@ import pytest
 import randovania
 from randovania.game_description import data_reader
 from randovania.game_description.game_patches import GamePatches
-from randovania.games.prime import claris_randomizer
+from randovania.games.prime import claris_menu_mod
 from randovania.layout.layout_configuration import LayoutTrickLevel, LayoutConfiguration
 from randovania.layout.layout_description import LayoutDescription, SolverPath, _item_locations_to_pickup_assignment
 from randovania.layout.patcher_configuration import PatcherConfiguration
@@ -43,7 +43,7 @@ def test_round_trip_default(permalink: Permalink,
         permalink=permalink,
         patches=GamePatches(
             _item_locations_to_pickup_assignment(game, item_locations),
-            claris_randomizer.elevator_connections_for_seed_number(permalink.seed_number),
+            claris_menu_mod.elevator_connections_for_seed_number(permalink.seed_number),
             {}, {}, (), game.starting_location
         ),
         solver_path=solver_path,
