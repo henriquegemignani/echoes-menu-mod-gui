@@ -15,11 +15,11 @@ with open("README.md") as readme_file:
     long_description = readme_file.read()
 
 setup(
-    name='randovania',
+    name='echoes-menu-mod-gui',
     version=VERSION,
     author='Henrique Gemignani',
-    url='https://github.com/henriquegemignani/randovania',
-    description='A randomizer validator for the Metroid Prime series.',
+    url='https://github.com/henriquegemignani/echoes-menu-mod-gui',
+    description='A GUI for applying Menu Mod to a Metroid Prime 2 ISO.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),
@@ -50,8 +50,6 @@ setup(
         'appdirs',
         'nod>=1.1',
         'requests',
-        'networkx',
-        'bitstruct',
         'pytest',
         'pytest-cov',
         'pytest-qt',
