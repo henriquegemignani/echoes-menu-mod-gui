@@ -1,6 +1,8 @@
 import sys
 from pathlib import Path
 
+from echoes_menu_mod_gui.version import version
+
 
 def get_data_path() -> Path:
     if getattr(sys, "frozen", False):
@@ -10,4 +12,5 @@ def get_data_path() -> Path:
     return file_dir.joinpath("data")
 
 
-VERSION = "1.1.0"
+__version__ = version
+VERSION = version

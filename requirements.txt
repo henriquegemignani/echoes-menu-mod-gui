@@ -5,6 +5,7 @@ certifi==2020.6.20
 chardet==3.0.4
 colorama==0.4.4
 coverage==5.3
+-e git+git@github.com:henriquegemignani/echoes-menu-mod-gui.git@dbef51e0e5708debd626daff8a6931041725e427#egg=echoes_menu_mod_gui
 future==0.18.2
 idna==2.10
 importlib-metadata==2.0.0

@@ -1,8 +1,11 @@
-from pyqt_distutils.build_ui import build_ui
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
 
-from echoes_menu_mod_gui import VERSION
+
+try:
+    from pyqt_distutils.build_ui import build_ui
+except ModuleNotFoundError:
+    build_ui = None
 
 
 class custom_build_py(build_py):
@@ -14,9 +17,24 @@ class custom_build_py(build_py):
 with open("README.md") as readme_file:
     long_description = readme_file.read()
 
+
+def version_scheme(version):
+    import setuptools_scm.version
+    if version.exact:
+        return setuptools_scm.version.guess_next_simple_semver(
+            version.tag, retain=setuptools_scm.version.SEMVER_LEN, increment=False)
+    else:
+        return version.format_next_version(
+            setuptools_scm.version.guess_next_simple_semver, retain=setuptools_scm.version.SEMVER_MINOR
+        )
+
+
 setup(
     name='echoes-menu-mod-gui',
-    version=VERSION,
+    use_scm_version={
+        "version_scheme": version_scheme,
+        "write_to": "echoes_menu_mod_gui/version.py",
+    },
     author='Henrique Gemignani',
     url='https://github.com/henriquegemignani/echoes-menu-mod-gui',
     description='A GUI for applying Menu Mod to a Metroid Prime 2 ISO.',
@@ -25,7 +43,7 @@ setup(
     packages=find_packages(),
     cmdclass={
         "build_ui": build_ui,
-        "build_py": custom_build_py
+        "build_py": custom_build_py,
     },
     scripts=[
     ],
@@ -45,6 +63,10 @@ setup(
         'Topic :: Games/Entertainment',
     ],
     python_requires=">=3.7",
+    setup_requires=[
+        "setuptools_scm",
+        "pyqt-distutils",
+    ],
     install_requires=[
         'PySide2>=5.12,<5.15',
         'nod>=1.1',
