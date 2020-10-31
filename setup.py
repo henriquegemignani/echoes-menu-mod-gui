@@ -1,4 +1,4 @@
-from pyqt_distutils.build_ui import build_ui
+# from pyqt_distutils.build_ui import build_ui
 from setuptools import setup, find_packages
 from setuptools.command.build_py import build_py
 
@@ -24,7 +24,7 @@ setup(
     long_description_content_type='text/markdown',
     packages=find_packages(),
     cmdclass={
-        "build_ui": build_ui,
+        # "build_ui": build_ui,
         "build_py": custom_build_py
     },
     scripts=[
@@ -46,7 +46,7 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[
-        'PySide2>=5.12',
+        'PySide2>=5.12,<5.15',
         'nod>=1.1',
         'requests',
         'pytest',

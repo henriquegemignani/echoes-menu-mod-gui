@@ -5,7 +5,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-import markdown as markdown
+import markdown
 
 from echoes_menu_mod_gui import VERSION
 
@@ -14,7 +14,7 @@ zip_folder = "echoes-menu-mod-gui-{}".format(VERSION)
 package_folder = Path("dist", "echoes_menu_mod_gui")
 shutil.rmtree(package_folder, ignore_errors=True)
 
-subprocess.run([sys.executable, "-m", "PyInstaller", "echoes_menu_mod_gui.spec"])
+subprocess.run([sys.executable, "-m", "PyInstaller", "echoes_menu_mod_gui.spec"], check=True)
 
 with zipfile.ZipFile("dist/{}.zip".format(zip_folder), "w", compression=zipfile.ZIP_DEFLATED) as release_zip:
     for f in package_folder.glob("**/*"):
