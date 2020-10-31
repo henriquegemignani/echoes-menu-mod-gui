@@ -1,4 +1,5 @@
 echoes_menu_mod_gui/version.py
+echoes_menu_mod_gui/data/last_version_check.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

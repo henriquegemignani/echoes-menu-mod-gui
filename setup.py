@@ -68,13 +68,13 @@ setup(
         "pyqt-distutils",
     ],
     install_requires=[
+        'aiohttp',
         'PySide2>=5.12,<5.15',
         'nod>=1.1',
         'markdown',
         'pytest',
         'pytest-cov',
         'pytest-qt',
-        'requests',
     ],
     entry_points={
         'console_scripts': [

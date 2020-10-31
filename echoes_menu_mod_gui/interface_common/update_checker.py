@@ -1,3 +1,4 @@
+import asyncio
 import datetime
 import json
 import logging
@@ -5,7 +6,7 @@ import threading
 from pathlib import Path
 from typing import Callable, Optional, NamedTuple
 
-import requests
+import aiohttp
 
 from echoes_menu_mod_gui import VERSION, get_data_path
 
@@ -44,13 +45,15 @@ def _read_from_persisted() -> Optional[VersionDescription]:
         return None
 
 
-def _download_from_github() -> Optional[VersionDescription]:
-    latest_release = requests.get(_LATEST_RELEASE_URL)
-    if latest_release.ok:
-        data = latest_release.json()
-        return VersionDescription(data["tag_name"], data["html_url"])
-    else:
-        return None
+async def _download_from_github() -> Optional[VersionDescription]:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(_LATEST_RELEASE_URL) as response:
+            try:
+                response.raise_for_status()
+                data = await response.json()
+                return VersionDescription(data["tag_name"], data["html_url"])
+            except aiohttp.ClientResponseError:
+                return None
 
 
 def _persist_version(version: VersionDescription):
@@ -64,11 +67,11 @@ def _persist_version(version: VersionDescription):
         }, open_file, default=str)
 
 
-def _get_latest_version_work(on_result: Callable[[str, str], None]):
+async def _get_latest_version_work(on_result: Callable[[str, str], None]):
     version = _read_from_persisted()
 
     if version is None:
-        version = _download_from_github()
+        version = await _download_from_github()
         if version is not None:
             _persist_version(version)
 
@@ -78,8 +81,4 @@ def _get_latest_version_work(on_result: Callable[[str, str], None]):
 
 
 def get_latest_version(on_result: Callable[[str, str], None]):
-    def work():
-        _get_latest_version_work(on_result)
-
-    background_thread = threading.Thread(target=work)
-    background_thread.start()
+    asyncio.run(_get_latest_version_work(on_result))
