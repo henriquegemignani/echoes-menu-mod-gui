@@ -8,6 +8,7 @@ room state. For more details, see the
 [Menu Mod README](https://www.dropbox.com/s/yhqqafaxfo3l4vn/Echoes%20Menu.7z?file_subpath=%2FEchoes+Menu%2Freadme.txt).  
 
 ![Main GUI](echoes-menu-mod-gui-readme/menu-1.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhenriquegemignani%2Fechoes-menu-mod-gui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhenriquegemignani%2Fechoes-menu-mod-gui?ref=badge_shield)
 
 ## Installation
 
@@ -15,3 +16,7 @@ room state. For more details, see the
 
 In the [releases page](https://github.com/henriquegemignani/echoes-menu-mod-gui/releases) we have zip files
 with everything ready to use. Just extract and run!
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhenriquegemignani%2Fechoes-menu-mod-gui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhenriquegemignani%2Fechoes-menu-mod-gui?ref=badge_large)
